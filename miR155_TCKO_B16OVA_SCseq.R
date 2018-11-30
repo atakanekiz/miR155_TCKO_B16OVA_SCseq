@@ -3,7 +3,7 @@ library(dplyr)
 library(shiny)
   
 
-combined <- readRDS("clustered_combined_w_tsne.rds")
+combined <- readRDS("data/clustered_combined_w_tsne.rds")
 all_genes <- sort(rownames(combined@data))
 all_samples <- levels(combined@meta.data$cond)
 
@@ -77,23 +77,6 @@ ui <- fluidPage(
 server <- function(input, output, session){
   
   
-  # min_expr <- reactive({
-  #   
-  #   req(input$gene)
-  #   
-  #   round(min(combined@data[input$gene,]),2)
-  #   
-  # })
-  # 
-  # 
-  # max_expr <- reactive({
-  #   
-  #   req(input$gene)
-  #   
-  #   round(max(combined@data[input$gene,]),2)
-  #   
-  # })
-  
   observe({
     
     min_expr <- round(min(combined@data[input$gene,]),2)
@@ -122,7 +105,7 @@ server <- function(input, output, session){
   
   output$clusters <- renderImage(
     
-    {filename <- "Cluster_definitions.png"
+    {filename <- "data/Cluster_definitions.png"
     list(src=filename, width="auto", height = "auto")
     
     }, deleteFile = F
